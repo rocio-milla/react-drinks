@@ -1,6 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { CategoryContext } from '../context/CategoryContext';
 
 const Form = () => {
+
+    //You can consume the context like this, destructuring the variables in the value prop from {Name}Context.Provider
+    //const {myValue, setValue} = useContext(CategoryContext);
+
     return (
         <form className="col-12">
             <fieldset className="text-center">
