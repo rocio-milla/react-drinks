@@ -1,4 +1,5 @@
-import React, { createContext, useState } from 'react';
+import Axios from 'axios';
+import React, { createContext, useEffect, useState } from 'react';
 
 //Create context
 export const CategoryContext = createContext();
@@ -19,8 +20,24 @@ const CategoryProvider = (props) => {
         You can do what you want here and 
         "export" the variables in value prop for xContext.Provider
      */
+
+    const [categories, setCategories] = useState([]);
+
+    useEffect(() => {
+        const obtainCategories = async () => {
+            const url = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
+            const categories = await Axios.get(url);
+
+            setCategories(categories.data.drinks);
+        }
+        obtainCategories();
+    }, [])
+
     return (
-        <CategoryContext.Provider>
+        <CategoryContext.Provider
+        value={{
+            categories
+        }}>
             {props.children}
         </CategoryContext.Provider>
     )
